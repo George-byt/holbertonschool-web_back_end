@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Python file """
+""" Python file that contain a type-annotated function add """
 
 
 def add(a: float, b: float) -> float:
@@ -9,4 +9,3 @@ def add(a: float, b: float) -> float:
     a float.
     """
     return a + b
-
