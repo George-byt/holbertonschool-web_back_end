@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-""" Tasks """
+""" Python file that contains an asynchronous coroutine """
 import asyncio
 from typing import List
-task_wait_random = __import__('3-tasks').task_wait_random
-
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
-    """async routine
-    Args:
-        n (int): Number of times
-        max_delay (int): Waiting top number
-    Returns:
-        List[float]: list of all the delays
     """
-    delay_list = [task_wait_random(max_delay) for _ in range(n)]
-    return [await delay_list
-            for delay_list in asyncio.as_completed(delay_list)]
+    <<task_wait_n>> function
+    The code is nearly identicalto
+    wait_n except task_wait_random is being called.
+    """
+    list_w = []
+    for i in range(n):
+        task = asyncio.create_task(wait_random(max_delay))
+        list_w.append(task)
+    items = []
+    for item in asyncio.as_completed(list_w):
+        item = await item
+        items.append(item)
+    return items
