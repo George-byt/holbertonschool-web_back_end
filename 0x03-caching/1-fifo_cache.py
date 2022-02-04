@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """ Python file that contains a <FIFOCache> class"""
 from typing import Union
-BaseCaching = __import__('base_caching').BaseCaching
-
+from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
     """
