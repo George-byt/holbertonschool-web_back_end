@@ -1,12 +1,15 @@
 #!/usr/bin/python3
-""" Python file that contains a <FIFOCache> class"""
+"""class FIFOCache that inherits from BaseCaching."""
+
+
 from typing import Union
 from base_caching import BaseCaching
 
 
 class FIFOCache(BaseCaching):
-    """
-    <FIFOCache> is a caching system
+    """Fifo class
+    Args:
+        BaseCaching (class): base cache class
     """
 
     def __init__(self):
@@ -31,4 +34,3 @@ class FIFOCache(BaseCaching):
         if len(self.cache_data.keys()) >= self.MAX_ITEMS:
             delete_item = self.cache_data.popitem()[0]
             print(f'DISCARD: {delete_item}')
-    
