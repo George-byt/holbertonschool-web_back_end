@@ -3,6 +3,7 @@
 from typing import Union
 from base_caching import BaseCaching
 
+
 class FIFOCache(BaseCaching):
     """
     <FIFOCache> is a caching system
