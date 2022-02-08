@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-""" Python file that contain a index_range function """
+""" Python file that contain code about simple pagination """
 import csv
 import math
 from typing import Tuple, List
 index_range = __import__('0-simple_helper_function').index_range
 
- 
 
 class Server:
     """Server class to paginate a database of popular baby names.
