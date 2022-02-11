@@ -3,6 +3,8 @@
 from typing import List
 import re
 import logging
+import mysql.connector
+from os import getenv
 
 # Tuple PII_FIELDS that contains the fields
 # from user_data.csv that are considered PII
@@ -71,3 +73,18 @@ def get_logger() -> logging.Logger:
     # add ch to logger
     logger.addHandler(ch)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    get_db() implementation
+    Return: A connector to the database
+    (mysql.connector.connection.MySQLConnection object)
+    """
+    db = mysql.connector.connection.MySQLConnection(
+        host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=getenv('PERSONAL_DATA_DB_NAME'),
+        user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    )
+    return db
