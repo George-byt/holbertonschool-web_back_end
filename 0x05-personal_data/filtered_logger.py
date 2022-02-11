@@ -4,6 +4,10 @@ from typing import List
 import re
 import logging
 
+# Tuple PII_FIELDS that contains the fields
+# from user_data.csv that are considered PII
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
@@ -46,3 +50,23 @@ def filter_datum(fields: List[str], redaction: str, message: str,
         message = re.sub(f"{field}=.*?{separator}",
                          f"{field}={redaction}{separator}", message)
     return message
+
+def get_logger() -> logging.Logger:
+    """
+    get_logger implementation
+    Return: logging.Logger
+    """
+    # crate logger with the name "user_data"
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    # create console handler and set level to debug
+    ch = logging.StreamHandler()
+
+    # add formatter to ch
+    ch.setFormatter(RedactingFormatter(PII_FIELDS))
+
+    # add ch to logger
+    logger.addHandler(ch)
+    return logger
