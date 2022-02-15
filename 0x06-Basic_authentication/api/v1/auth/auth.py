@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """ Python file that contains a class to manage the API authentication """
-from queue import Empty
 from flask import request
 from typing import List, TypeVar
 
@@ -32,7 +31,8 @@ class Auth:
         Return:
             None - request
         """
-        return None
+        if request:
+            return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
