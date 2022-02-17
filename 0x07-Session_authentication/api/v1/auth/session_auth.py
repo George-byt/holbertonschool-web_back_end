@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Python file that contains the SessionAuth class """
 from api.v1.auth.auth import Auth
 
