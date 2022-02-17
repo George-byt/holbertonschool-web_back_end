@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """ Python file that contains the SessionAuth class """
+from flask import request
+from typing import List, TypeVar
 from api.v1.auth.auth import Auth
 import uuid
 from models.user import User
@@ -51,9 +53,13 @@ class SessionAuth(Auth):
         if not request:
             return False
         session_cookie = self.session_cookie(request)
+
         if not session_cookie:
             return False
+
+        user_id = self.user_id_for_session_id(session_cookie)
+
         if not user_id:
             return False
-        user_id = self.user_id_by_session_id.pop(session_cookie)
+        self.user_id_by_session_id.pop(session_cookie)
         return True

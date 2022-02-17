@@ -11,7 +11,7 @@ from api.v1.app import auth
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def loginViews():
+def login():
     """
     POST /auth_session/login/
     Return
@@ -47,9 +47,11 @@ def loginViews():
 
     return response
 
+
 @app_views.route('/auth_session/logout',
-                 methods=['DELETE'], strict_slashes=False)
-def logoutView():
+                 methods=['DELETE'],
+                 strict_slashes=False)
+def logout():
     """
     logout View
     """
