@@ -54,6 +54,6 @@ class SessionAuth(Auth):
         if not session_cookie:
             return False
         if not user_id:
-            return False        
+            return False
         user_id = self.user_id_by_session_id.pop(session_cookie)
         return True
