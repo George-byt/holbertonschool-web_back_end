@@ -26,7 +26,6 @@ if getenv("AUTH_TYPE") == "basic_auth":
 
 if getenv("AUTH_TYPE") == "session_auth":
     auth = SessionAuth()
-    
 
 
 @app.before_request
