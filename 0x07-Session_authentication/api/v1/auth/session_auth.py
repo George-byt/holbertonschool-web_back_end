@@ -6,13 +6,8 @@ from api.v1.auth.auth import Auth
 class SessionAuth(Auth):
     """
     Class: SessionAuth
-
-    It's the first step for creating a new authentication
-    mechanism:
-
-        => validate if everything inherits correctly whitout
+        validate if everything inherits correctly whitout
         any overloading
-
-        => validate the "switch" by using environment variables
+        validate the "switch" by using environment variables
     """
     pass
