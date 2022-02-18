@@ -8,38 +8,43 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
 
+
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
-
-
-if os.getenv("AUTH_TYPE") == "auth":
-    from api.v1.auth.auth import Auth
-    auth = Auth()
-
 if os.getenv("AUTH_TYPE") == "basic_auth":
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-
-if os.getenv("AUTH_TYPE") == "session_auth":
+elif os.getenv("AUTH_TYPE") == "session_auth":
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
+elif os.getenv("AUTH_TYPE") == "session_exp_auth":
+    from api.v1.auth.session_exp_auth import SessionExpAuth
+    auth = SessionExpAuth()
+elif os.getenv('AUTH_TYPE') == 'session_db_auth':
+    from api.v1.auth.session_db_auth import SessionDBAuth
+    auth = SessionDBAuth()
+elif os.getenv("AUTH_TYPE") == "auth":
+    from api.v1.auth.auth import Auth
+    auth = Auth()
 
 
 @app.before_request
-def authentication_handler() -> None:
-    """Auth handler
-    Returns:
-        [type]: creates an instance of auth
-    """
-    exceptions = ['/api/v1/status/',
-                  '/api/v1/unauthorized/', '/api/v1/forbidden/']
-    if not auth or not auth.require_auth(request.path, exceptions):
+def before_request_func():
+    """ before request function """
+    excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
+                      '/api/v1/forbidden/', '/api/v1/auth_session/login/']
+    if auth is None:
         return None
-    if not auth.authorization_header(request):
+    if auth.require_auth(request.path, excluded_paths):
+        pass
+    else:
+        return None
+    if (not auth.authorization_header(request)
+            and not auth.session_cookie(request)):
         abort(401)
-    if not auth.current_user(request):
+    if auth.current_user(request) is None:
         abort(403)
     request.current_user = auth.current_user(request)
 
@@ -53,20 +58,14 @@ def not_found(error) -> str:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """
-    Unauthorized error handler
-    Args:
-        error ([type]): [description]
-    Returns:
-        str: [description]
+    """ Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """
-    Forbidden error handler
+    """ Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
 
