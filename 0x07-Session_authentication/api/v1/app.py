@@ -4,6 +4,8 @@ Route module for the API
 """
 from os import getenv
 from api.v1.views import app_views
+from api.v1.auth.auth import Auth
+from api.v1.auth.basic_auth import BasicAuth
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 
@@ -20,24 +22,18 @@ if getenv("AUTH_TYPE") == "auth":
 if getenv("AUTH_TYPE") == "basic_auth":
     auth = BasicAuth()
 
-if getenv("AUTH_TYPE") == "session_auth":
-    auth = SessionAuth()
-
 
 @app.before_request
 def authentication_handler() -> None:
-    """
-    Auth handler
+    """Auth handler
     Returns:
         [type]: creates an instance of auth
     """
     exceptions = ['/api/v1/status/',
-                  '/api/v1/unauthorized/', '/api/v1/forbidden/',
-                  '/api/v1/auth_session/login/']
+                  '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if not auth or not auth.require_auth(request.path, exceptions):
         return None
-    if not auth.authorization_header(request)\
-            and not auth.session_cookie(request):
+    if not auth.authorization_header(request):
         abort(401)
     if not auth.current_user(request):
         abort(403)
@@ -46,12 +42,7 @@ def authentication_handler() -> None:
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """
-    Not found handler
-    Args:
-        error ([type]): [description]
-    Returns:
-        str: [description]
+    """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
 
@@ -72,10 +63,6 @@ def unauthorized(error) -> str:
 def forbidden(error) -> str:
     """
     Forbidden error handler
-    Args:
-        error ([type]): [description]
-    Returns:
-        str: [description]
     """
     return jsonify({"error": "Forbidden"}), 403
 
