@@ -30,7 +30,8 @@ if getenv("AUTH_TYPE") == "session_auth":
 
 @app.before_request
 def authentication_handler() -> None:
-    """Auth handler
+    """
+    Auth handler
     Returns:
         [type]: creates an instance of auth
     """
@@ -49,7 +50,12 @@ def authentication_handler() -> None:
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """
+    Not found handler
+    Args:
+        error ([type]): [description]
+    Returns:
+        str: [description]
     """
     return jsonify({"error": "Not found"}), 404
 
@@ -70,6 +76,10 @@ def unauthorized(error) -> str:
 def forbidden(error) -> str:
     """
     Forbidden error handler
+    Args:
+        error ([type]): [description]
+    Returns:
+        str: [description]
     """
     return jsonify({"error": "Forbidden"}), 403
 
