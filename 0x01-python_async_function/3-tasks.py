@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
-""" Python file that contains an asynchronous coroutine """
-import asyncio
+"""
+This module contains a function.
+"""
+
+from asyncio import Task, create_task
+
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-def task_wait_random(max_delay: int) -> asyncio.Task:
+def task_wait_random(max_delay: int) -> Task:
     """
-    <<task_wait_random>> function that takes an integer
-    max_delay and returns a asyncio.Task
+    Args:
+        max_delay: The maximum random time generated.
+    Returns:
+        An asyncio.Task element.
     """
-    return asyncio.create_task(wait_random(max_delay))
+
+    return create_task(wait_random(max_delay))
