@@ -38,7 +38,7 @@ class DB:
         Args:
             email
             hashed_password
-        
+
         Return:
             User object
         """
