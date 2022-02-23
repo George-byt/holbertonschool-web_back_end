@@ -4,6 +4,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 
 from user import Base, User
@@ -36,3 +37,16 @@ class DB:
         self._session.add(new_user)
         self._session.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        DB.find_user_by Method
+        Args:
+            keyword argumens [**kwargs]
+        Return:
+            The firt row found in the users table
+        """
+        result = self._session.query(User).filter_by(**kwargs).first()
+        if not result:
+            raise NoResultFound
+        return result
