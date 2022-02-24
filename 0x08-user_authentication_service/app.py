@@ -6,9 +6,12 @@ from flask.json import jsonify
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route('/')
 def welcome():
-    return flask.jsonify({"message": "Bienvenue"})
+    """
+    / GET endpoint.
+    """
+    return jsonify({"message": "Bienvenue"})
 
 
 if __name__ == "__main__":
