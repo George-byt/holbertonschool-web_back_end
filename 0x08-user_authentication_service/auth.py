@@ -75,3 +75,40 @@ class Auth:
             return session_id
         except Exception:
             return None
+
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+        """ Get a user from his login session. """
+        if session_id:
+            try:
+                user = self._db.find_user_by(session_id=session_id)
+                return user
+            except Exception:
+                return None
+        return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """ Destroy a user login session. """
+        if user_id:
+            self._db.update_user(user_id, session_id=None)
+        return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        """ Generate a reset token for the user. """
+        try:
+            user = self._db.find_user_by(email=email)
+            token = _generate_uuid()
+            self._db.update_user(user.id, reset_token=token)
+            return str(token)
+        except Exception:
+            raise ValueError
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ Update the password with a token. """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            self._db.update_user(user.id,
+                                 hashed_password=_hash_password(password),
+                                 reset_token=None)
+        except Exception:
+            raise ValueError
+        return None
