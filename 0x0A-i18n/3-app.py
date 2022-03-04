@@ -2,7 +2,7 @@
 """ Flask App """
 from flask import Flask, render_template, request
 from os import getenv
-from flask_babel import Babel, gettext
+from flask_babel import Babel
 
 
 app = Flask(__name__)
