@@ -24,6 +24,7 @@ def call_history(method: Callable) -> Callable:
         return data
     return wrapper
 
+
 def count_calls(method: Callable) -> Callable:
     """ to count how many times methods of the Cache class are called """
     key = method.__qualname__
@@ -83,6 +84,7 @@ class Cache():
         except Exception:
             data = 0
         return data
+
 
 def replay(method: Callable):
     """ display the history of calls of a particular function """
