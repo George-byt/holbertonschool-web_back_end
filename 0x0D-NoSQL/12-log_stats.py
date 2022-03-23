@@ -3,8 +3,6 @@
 Python file tha contains
 a Python function
 """
-
-
 from pymongo import MongoClient
 
 
