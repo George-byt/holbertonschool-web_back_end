@@ -25,5 +25,4 @@ A **Promise** is in one of these states:
 | ------ | ----------- | ------ |
 | `Promise.resolve()` | The static `Promise.resolve` function returns a `Promise` that is resolved. | `Promise.resolve(value);` |
 | `Promise.reject()` | The static `Promise.reject` function returns a `Promise` that is rejected. For debugging purposes and selective error catching, it is useful to make `reason` an `instanceof` `Error`. | `Promise.reject(reason);` |
-
-
+| `Promise.prototype.then()` | The `then()` method returns a Promise. It takes up to two arguments: callback functions for the success and failure cases of the Promise. | `p.then(onFulfilled[, onRejected]);`<br/>`p.then(value => {`<br/>`// fulfillment`<br/>`}, reason => {`<br/>`// rejection`<br/>`});`|
