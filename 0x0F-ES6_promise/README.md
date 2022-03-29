@@ -9,8 +9,11 @@
 * How to use an async function
 
 ## Promise
+
 ![](https://res.cloudinary.com/dvovmo7yu/image/upload/v1648522378/promises_hrcteh.png)
+
 A **Promise** is an object representing the eventual completion or failure of an asynchronous operation.
+
 A **Promise** is in one of these states:
 * *pending*: initial state, neither fulfilled nor rejected
 * *fulfilled*: meaning that the operation was completed successfully
