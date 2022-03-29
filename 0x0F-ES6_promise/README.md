@@ -18,21 +18,9 @@ A **Promise** is in one of these states:
 
 ![](https://res.cloudinary.com/dvovmo7yu/image/upload/v1648523028/promises_1_p5o3a0.png)
 
-## `Promise.resolve()`
-The `Promise.resolve()` method returns a Promise object that is resolved with a given value. If the value is a promise, that promise is returned; if the value is a thenable (i.e. has a `"then" method`), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value.
-### Syntax
-`Promise.resolve(value);`
-## Parameters
-### value
-**Argument** to be resolved by this `Promise`. Can also be a `Promise` or a thenable to resolve.
+| Method | Description | Syntax |
+| ------ | ----------- | ------ |
+| `Promise.resolve()` | The static `Promise.resolve` function returns a `Promise` that is resolved. | `Promise.resolve(value);` |
+| `Promise.reject()` | The static `Promise.reject` function returns a `Promise` that is rejected. For debugging purposes and selective error catching, it is useful to make `reason` an `instanceof` `Error`. | `Promise.reject(reason);` |
 
-## Return value
-A `Promise` that is resolved with the given value, or the promise passed as value, if the value was a promise object.
 
-## Description
-The static `Promise.resolve` function returns a `Promise` that is resolved.
-
-## Composition
-`Promise.resolve()` and `Promise.reject()` are shortcuts
-to manually create an already resolved or rejected promise respectively. This can be useful at times.
-`Promise.resolve()` and `Promise.reject()` are two composition tools for running asynchronous operations in parallel
