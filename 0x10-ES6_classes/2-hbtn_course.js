@@ -11,8 +11,6 @@ export default class HolbertonCourse {
     this._students = students;
   }
 
-  // Getters
-
   get name() {
     return this._name;
   }
@@ -24,8 +22,6 @@ export default class HolbertonCourse {
   get students() {
     return this._students;
   }
-
-  // Setters
 
   set name(name) {
     if (typeof (name) !== 'string') throw TypeError('Name must be a string')
