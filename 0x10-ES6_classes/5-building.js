@@ -5,12 +5,12 @@ export default class Building {
     }
     this._sqft = sqft;
   }
-  // Get
+
   get sqft() {
     return this._sqft;
   }
-  // Set
+
   set sqft(sqft) {
-    return this._sqft = sqft;
+    this._sqft = sqft;
   }
 }
