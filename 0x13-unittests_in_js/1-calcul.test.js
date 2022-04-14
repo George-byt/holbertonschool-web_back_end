@@ -16,6 +16,18 @@ describe('calculateNumber type == SUM', () => {
     });
 });
 
+describe('calculateNumber type == SUBTRACT', () => {
+    it('checks the output', () => {
+      assert.strictEqual(calculateNumber('SUBTRACT', 5, 3), 2);
+      assert.strictEqual(calculateNumber('SUBTRACT', 3.1, 2.5), 0);
+      assert.strictEqual(calculateNumber('SUBTRACT', 4.5, 2), 3);
+      assert.strictEqual(calculateNumber('SUBTRACT', 0.0, 5), -5);
+      assert.strictEqual(calculateNumber('SUBTRACT', 2, 4.5), -3);
+      assert.strictEqual(calculateNumber('SUBTRACT', -1, 1), -2);
+      assert.strictEqual(calculateNumber('SUBTRACT', -1.5, 0), -1);
+    });
+});
+
 describe('calculateNumber type == DIVIDE', () => {
     it('check the output', () => {
       assert.strictEqual(calculateNumber('DIVIDE', 2, 2.5), 0.6666666666666666);
